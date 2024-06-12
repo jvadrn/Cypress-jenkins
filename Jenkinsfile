@@ -17,15 +17,15 @@ pipeline {
         }
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --reporter cypress-mochawesome-reporter'
+                bat 'npx cypress run '
             }
         }
-        stage('Debug Reports') {
-            steps {
-                sh 'ls -la cypress/reports'
-                sh 'ls -la cypress/screenshots'
-            }
-        }
+        // stage('Debug Reports') {
+        //     steps {
+        //         sh 'ls -la cypress/reports'
+        //         sh 'ls -la cypress/screenshots'
+        //     }
+        // }
         // stage('Deploy to Staging') {
         //     when {
         //         branch 'main'
