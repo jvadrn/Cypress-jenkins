@@ -25,14 +25,5 @@ pipeline {
         }
     }
     
-    post {
-        always {
-            // Pastikan untuk menggunakan pola yang benar untuk file XML hasil tes JUnit
-            junit 'cypress/reports/*.xml'
-            
-            // Pastikan pola ini sesuai dengan file JSON yang ingin Anda arsipkan
-            archiveArtifacts artifacts: 'cypress/reports/*.json', allowEmptyArchive: true
-        }
-    }
 }
 
