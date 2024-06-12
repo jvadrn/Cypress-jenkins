@@ -9,8 +9,7 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
-                bat 'npx install'
+                bat 'npm install -g npm'
             }
         }
         stage('Run Cypress Tests') {
@@ -18,14 +17,14 @@ pipeline {
                 bat 'npm run cy:open'
             }
         }
-        stage('Deploy to Staging') {
-            when {
-                branch 'main'
-            }
-            steps {
-                bat 'sh deploy-to-staging.sh'
-            }
-        }
+        // stage('Deploy to Staging') {
+        //     when {
+        //         branch 'main'
+        //     }
+        //     steps {
+        //         bat 'sh deploy-to-staging.sh'
+        //     }
+        // }
     }
     post {
         always {
