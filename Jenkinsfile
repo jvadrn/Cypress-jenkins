@@ -9,12 +9,12 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                bat 'npm install -g npm'
+                bat 'npm install'
             }
         }
         stage('Run Cypress Tests') {
             steps {
-                bat 'npm run cypress open'
+                bat 'npm run cypress:run'
             }
         }
         // stage('Deploy to Staging') {
