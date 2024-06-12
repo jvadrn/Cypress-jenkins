@@ -9,12 +9,12 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
         stage('Run Cypress Tests') {
             steps {
-                sh 'npm run cypress:run'
+                bat 'npm run cypress:run'
             }
         }
         stage('Deploy to Staging') {
@@ -22,7 +22,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                sh 'sh deploy-to-staging.sh'
+                bat 'sh deploy-to-staging.sh'
             }
         }
     }
