@@ -1,9 +1,12 @@
 {
-  "devDependencies": {
-    "cypress": "^13.11.0"
-  },
-  
+  "name": "your-project-name",
+  "version": "1.0.0",
   "scripts": {
-    "cy:open": "cypress open"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^10.0.0"
   }
 }
