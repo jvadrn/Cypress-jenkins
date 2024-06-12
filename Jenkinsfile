@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Run Cypress Tests') {
             steps {
-                bat 'npm run cy:open'
+                bat 'npm run cypress open'
             }
         }
         // stage('Deploy to Staging') {
