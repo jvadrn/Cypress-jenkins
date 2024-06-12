@@ -17,7 +17,13 @@ pipeline {
         }
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run'
+                bat 'npx cypress run --reporter cypress-mochawesome-reporter'
+            }
+        }
+        stage('Debug Reports') {
+            steps {
+                sh 'ls -la cypress/reports'
+                sh 'ls -la cypress/screenshots'
             }
         }
         // stage('Deploy to Staging') {
@@ -31,15 +37,9 @@ pipeline {
     }
      post {
         always {
-            archiveArtifacts artifacts: 'cypress/screenshots/**/*', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'cypress/videos/**/*', allowEmptyArchive: true
-            junit 'cypress/results/*.xml'
-        }
-        failure {
-            mail to: 'your-email@example.com',
-                 subject: "Pipeline failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
-                 body: "Check console output at ${env.BUILD_URL}"
+            junit 'cypress/reports/*.xml'
+            archiveArtifacts artifacts: 'cypress/reports/*.json', allowEmptyArchive: true
         }
     }
-    
+
 }

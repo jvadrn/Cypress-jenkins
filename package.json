@@ -7,6 +7,16 @@
     "cypress:run": "cypress run"
   },
   "devDependencies": {
-    "cypress": "^10.0.0"
+    "cypress": "^10.0.0",
+    "cypress-mochawesome-reporter": "^3.8.2"
+  },
+  "reporter": "cypress-mochawesome-reporter",
+  "reporterOptions": {
+    "reportDir": "cypress/reports",
+    "overwrite": false,
+    "html": false,
+    "json": true,
+    "reportFilename": "report",
+    "timestamp": "mmddyyyy_HHMMss"
   }
 }
