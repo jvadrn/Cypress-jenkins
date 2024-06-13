@@ -20,22 +20,28 @@ pipeline {
         
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --reporter cypress-mochawesome-reporter'
+                bat 'npx cypress run '
             }
         }
     }
     post {
         always {
-            script {
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'cypress/reports/html',
-                    reportFiles: 'mochawesome_003.html',
-                    reportName: 'Cypress Test Report'
-                ])
-            }
+            publishHTML(target: [
+                reportDir: 'cypress/reports/html',
+                reportFiles: 'cypress-report.html',
+                reportName: 'Cypress Test Report',
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true
+            ])
+
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'cypress/reports']]
+            ])
         }
     }
 }
