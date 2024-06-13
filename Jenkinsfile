@@ -37,13 +37,13 @@ pipeline {
                 keepAll: true
             ])
 
-            allure([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'cypress/reports']]
-            ])
+            // allure([
+            //     includeProperties: false,
+            //     jdk: '',
+            //     properties: [],
+            //     reportBuildPolicy: 'ALWAYS',
+            //     results: [[path: 'cypress/reports']]
+            // ])
         }
     }
 }
