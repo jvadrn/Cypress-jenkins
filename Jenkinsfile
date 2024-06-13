@@ -7,7 +7,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                git url: 'https://github.com/jvadrn/Belajar-webhook-jenkins.git', branch: 'main'
             }
         }
         
