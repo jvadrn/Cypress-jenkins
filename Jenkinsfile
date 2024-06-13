@@ -21,7 +21,6 @@ pipeline {
         stage('Run Cypress Tests') {
             steps {
                 bat 'npx cypress run '
-                bat 'npm run merge-reports'
                 bat 'npm run generate-report'
             }
         }
