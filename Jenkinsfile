@@ -24,6 +24,19 @@ pipeline {
             }
         }
     }
+    post {
+    always {
+        publishHTML(target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'cypress/reports/html',
+            reportFiles: 'mochawesome_003.html',
+            reportName: 'Cypress Test Report'
+        ])
+    }
+}
+    
     
 }
 

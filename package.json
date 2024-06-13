@@ -12,7 +12,7 @@
   },
   "reporter": "cypress-mochawesome-reporter",
   "reporterOptions": {
-    "reportDir": "cypress/screenshots",
+    "reportDir": "cypress/report",
     "overwrite": false,
     "html": false,
     "json": true,
