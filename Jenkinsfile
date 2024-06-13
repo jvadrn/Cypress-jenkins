@@ -18,7 +18,7 @@ pipeline {
         
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run '
+                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/html,reportFilename=index'
             }
         }
         stage('Publish Test Report') {
