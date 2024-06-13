@@ -1,14 +1,13 @@
 pipeline {
     agent any
     
-    environment {
-        CI = 'true'
-    }
+
     
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+                git url: 'https://github.com/jvadrn/Belajar-webhook-jenkins.git', branch: 'main'
             }
         }
         
@@ -23,26 +22,26 @@ pipeline {
                 bat 'npx cypress run '
             }
         }
+        stage('Publish Test Report') {
+            steps {
+                // Publish laporan tes Cypress
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'cypress-tests/cypress/reports/html',
+                    reportFiles: 'index.html',
+                    reportName: 'Cypress Test Report'
+                ])
+            }
+        }
     }
     post {
         always {
-            publishHTML(target: [
-                reportDir: 'cypress/reports/html',
-                reportFiles: 'cypress-report.html',
-                reportName: 'Cypress Test Report',
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true
-            ])
-
-            // allure([
-            //     includeProperties: false,
-            //     jdk: '',
-            //     properties: [],
-            //     reportBuildPolicy: 'ALWAYS',
-            //     results: [[path: 'cypress/reports']]
-            // ])
+            // Clean workspace after build
+            cleanWs()
         }
     }
+    
 }
 
