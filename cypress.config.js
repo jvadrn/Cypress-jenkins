@@ -10,8 +10,11 @@ module.exports = defineConfig({
     reportFilename: 'index'
   },
   e2e: {
+    baseUrl: 'http://157.245.199.194:8080/',
     setupNodeEvents(on, config) {
+
       // implement node event listeners here
     },
   },
+
 });
