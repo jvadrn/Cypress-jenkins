@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jvadrn', url: 'https://github.com/jvadrn/Belajar-webhook-jenkins.git']])
             }
         }
         
