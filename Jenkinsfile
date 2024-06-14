@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    
-
-    
     stages {
         stage('Checkout') {
             steps {
@@ -12,22 +9,17 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
+                sh 'npm install'
             }
         }
         
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/html,reportFilename=index'
+                sh 'npx cypress run'
             }
         }
     }
-    post {
-        always {
-            // Clean workspace after build
-            cleanWs()
-        }
-    }
+    
     
 }
 
