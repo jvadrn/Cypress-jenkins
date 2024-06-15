@@ -59,7 +59,7 @@ pipeline {
                 archiveArtifacts artifacts: '/home/jenkins/cypress/reports/**/*.json', allowEmptyArchive: true
             }
             // Bersihkan workspace
-            deleteDir()
+
         }
         
         success {
