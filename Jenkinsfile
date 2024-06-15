@@ -55,10 +55,14 @@ pipeline {
         stage('Generate Report') {
             steps {
                 script {
+                    // Ensure mochawesome-merge is executable
+                    sh 'chmod +x ./node_modules/.bin/mochawesome-merge'
                     // Merge the Mochawesome JSON files
-                    sh 'npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome.json'
+                    sh './node_modules/.bin/mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome.json'
+                    // Ensure mochawesome-report-generator is executable
+                    sh 'chmod +x ./node_modules/.bin/mochawesome-report-generator'
                     // Generate the final report
-                    sh 'npx mochawesome-report-generator cypress/reports/mochawesome.json -o cypress/reports/mochawesome-report'
+                    sh './node_modules/.bin/mochawesome-report-generator cypress/reports/mochawesome.json -o cypress/reports/mochawesome-report'
                 }
             }
         }
