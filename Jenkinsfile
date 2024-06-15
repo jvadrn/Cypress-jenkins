@@ -62,22 +62,28 @@ pipeline {
     }
     
     post {
-    always {
-        script {
-            def reportsExist = fileExists('cypress/reports/html')
-            if (reportsExist) {
-                echo 'Laporan tes ditemukan, mengarsipkan...'
+        always {
+            script {
                 // Arsipkan laporan tes
-                archiveArtifacts artifacts: 'cypress/reports/html/**/*.json', allowEmptyArchive: true
-                // JUnit laporan
-                junit 'cypress/reports/html/**/*.xml'
-            } else {
-                echo 'Tidak ada laporan tes yang ditemukan untuk diarsipkan.'
+                archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
             }
+            // Bersihkan workspace
+            deleteDir()
         }
-        // Bersihkan workspace
-        deleteDir()
     }
-}
+    
+    post {
+        success {
+            // Publish HTML reports
+            publishHTML target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'cypress/reports/html',
+                reportFiles: 'index.html',
+                reportName: 'Cypress Test Results'
+            ]
+        }
+    }
 
 }
