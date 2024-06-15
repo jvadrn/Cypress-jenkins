@@ -47,7 +47,7 @@ pipeline {
         
         stage('Jalankan Tes Cypress') {
             steps {
-                sh 'npx cypress run --reporter mocha-multi-reporters --reporter-options configFile=cypress.json'
+                sh 'npx cypress run --reporter mocha-multi-reporters --reporter-options configFile=package.json'
             }
         }
 
