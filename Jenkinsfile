@@ -51,33 +51,6 @@ pipeline {
                 sh 'npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json'
             }
         }
-        
-        stage('Generate Report') {
-            steps {
-                script {
-                    // Ensure mochawesome-merge is executable
-                    sh 'chmod +x ./node_modules/.bin/mochawesome-merge'
-                    // Merge the Mochawesome JSON files
-                    sh './node_modules/.bin/mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome.json'
-                    // Ensure mochawesome-report-generator is executable
-                    sh 'chmod +x ./node_modules/.bin/mochawesome-report-generator'
-                    // Generate the final report
-                    sh './node_modules/.bin/mochawesome-report-generator cypress/reports/mochawesome.json -o cypress/reports/mochawesome-report'
-                }
-            }
-        }
-        
-        stage('Publish Report') {
-            steps {
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'cypress/reports/mochawesome-report',
-                    reportFiles: 'mochawesome.html',
-                    reportName: 'Cypress Test Report'
-                ])
-            }
-        }
+    
     }
 }
