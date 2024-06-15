@@ -52,22 +52,23 @@ pipeline {
         }
     }
 
-    post {
+     post {
         always {
             script {
-                // Arsipkan laporan tes
-                archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
+                // Arsipkan laporan tes dari direktori lokal
+                archiveArtifacts artifacts: '/home/jenkins/cypress/reports/**/*.json', allowEmptyArchive: true
             }
             // Bersihkan workspace
             deleteDir()
         }
+        
         success {
-            // Publish HTML reports
+            // Publish HTML reports dari direktori lokal
             publishHTML target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'cypress/reports/html',
+                reportDir: '/home/jenkins/cypress/reports/html',
                 reportFiles: 'index.html',
                 reportName: 'Cypress Test Results'
             ]
