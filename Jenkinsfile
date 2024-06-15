@@ -50,17 +50,8 @@ pipeline {
                 sh 'npx cypress run '
             }
         }
-
-        // stage('Periksa Laporan') {
-        //     steps {
-        //         script {
-        //             def reports = sh(script: 'ls -1 cypress/reports/junit', returnStdout: true).trim()
-        //             echo "Laporan yang ditemukan:\n${reports}"
-        //         }
-        //     }
-        // }
     }
-    
+
     post {
         always {
             script {
@@ -70,9 +61,6 @@ pipeline {
             // Bersihkan workspace
             deleteDir()
         }
-    }
-    
-    post {
         success {
             // Publish HTML reports
             publishHTML target: [
