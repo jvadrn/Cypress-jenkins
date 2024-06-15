@@ -61,22 +61,23 @@ pipeline {
         // }
     }
     
-    // post {
-    //     always {
-    //         script {
-    //             def reportsExist = fileExists('cypress/reports/junit')
-    //             if (reportsExist) {
-    //                 echo 'Laporan tes ditemukan, mengarsipkan...'
-    //                 // Arsipkan laporan tes
-    //                 archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
-    //                 // JUnit laporan
-    //                 junit 'cypress/reports/junit/*.xml'
-    //             } else {
-    //                 echo 'Tidak ada laporan tes yang ditemukan untuk diarsipkan.'
-    //             }
-    //         }
-    //         // Bersihkan workspace
-    //         deleteDir()
-    //     }
-    // }
+    post {
+    always {
+        script {
+            def reportsExist = fileExists('cypress/reports/html')
+            if (reportsExist) {
+                echo 'Laporan tes ditemukan, mengarsipkan...'
+                // Arsipkan laporan tes
+                archiveArtifacts artifacts: 'cypress/reports/html/**/*.json', allowEmptyArchive: true
+                // JUnit laporan
+                junit 'cypress/reports/html/**/*.xml'
+            } else {
+                echo 'Tidak ada laporan tes yang ditemukan untuk diarsipkan.'
+            }
+        }
+        // Bersihkan workspace
+        deleteDir()
+    }
+}
+
 }
