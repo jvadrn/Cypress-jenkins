@@ -51,7 +51,7 @@ pipeline {
                 sh 'echo "Workspace: ${WORKSPACE}"'
                 sh 'ls -alh'
                 sh 'ls -alh cypress'
-                sh 'ls -alh cypress/reports'
+                sh 'ls -alh cypress/reports/html'
             }
         }
         
@@ -60,14 +60,31 @@ pipeline {
                 sh 'npx cypress run --reporter mocha-multi-reporters --reporter-options configFile=reporter-config.json'
             }
         }
+
+        stage('Periksa Laporan') {
+            steps {
+                script {
+                    def reports = sh(script: 'ls -1 cypress/reports/html', returnStdout: true).trim()
+                    echo "Laporan yang ditemukan:\n${reports}"
+                }
+            }
+        }
     }
     
     post {
         always {
-            // Arsipkan laporan tes
-            archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
-            // JUnit laporan
-            junit 'cypress/reports/**/*.xml'
+            script {
+                def reportsExist = fileExists('cypress/reports/html')
+                if (reportsExist) {
+                    echo 'Laporan tes ditemukan, mengarsipkan...'
+                    // Arsipkan laporan tes
+                    archiveArtifacts artifacts: 'cypress/reports/html/**/*.json', allowEmptyArchive: true
+                    // JUnit laporan
+                    junit 'cypress/reports/html/**/*.xml'
+                } else {
+                    echo 'Tidak ada laporan tes yang ditemukan untuk diarsipkan.'
+                }
+            }
             // Bersihkan workspace
             deleteDir()
         }
