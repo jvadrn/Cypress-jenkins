@@ -28,26 +28,26 @@ pipeline {
         
         stage('Instalasi Dependencies') {
             steps {
-                bat 'npm install'
-               
-                bat 'npm  install -y xvfb'
-                bat 'npm install mocha-multi-reporters mocha-junit-reporter --save-dev'
+                sh 'npm install'
+                sh 'sudo apt-get update'
+                sh 'sudo apt-get install -y xvfb'
+                sh 'npm install mocha-multi-reporters mocha-junit-reporter --save-dev'
 
             }
         }
         
         stage('Debug Environment') {
             steps {
-                bat 'echo "Workspace: ${WORKSPACE}"'
-                bat 'ls -alh'
-                bat 'ls -alh cypress'
-                bat 'ls -alh cypress/reports'
+                sh 'echo "Workspace: ${WORKSPACE}"'
+                sh 'ls -alh'
+                sh 'ls -alh cypress'
+                sh 'ls -alh cypress/reports'
             }
         }
         
         stage('Jalankan Tes Cypress') {
             steps {
-                bat 'npx cypress run '
+                sh 'npx cypress run '
             }
         }
         stage('Publish Test Report') {
