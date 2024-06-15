@@ -49,32 +49,32 @@ pipeline {
             }
         }
 
-        stage('Periksa Laporan') {
-            steps {
-                script {
-                    def reports = sh(script: 'ls -1 cypress/reports/junit', returnStdout: true).trim()
-                    echo "Laporan yang ditemukan:\n${reports}"
-                }
-            }
-        }
+        // stage('Periksa Laporan') {
+        //     steps {
+        //         script {
+        //             def reports = sh(script: 'ls -1 cypress/reports/junit', returnStdout: true).trim()
+        //             echo "Laporan yang ditemukan:\n${reports}"
+        //         }
+        //     }
+        // }
     }
     
-    post {
-        always {
-            script {
-                def reportsExist = fileExists('cypress/reports/junit')
-                if (reportsExist) {
-                    echo 'Laporan tes ditemukan, mengarsipkan...'
-                    // Arsipkan laporan tes
-                    archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
-                    // JUnit laporan
-                    junit 'cypress/reports/junit/*.xml'
-                } else {
-                    echo 'Tidak ada laporan tes yang ditemukan untuk diarsipkan.'
-                }
-            }
-            // Bersihkan workspace
-            deleteDir()
-        }
-    }
+    // post {
+    //     always {
+    //         script {
+    //             def reportsExist = fileExists('cypress/reports/junit')
+    //             if (reportsExist) {
+    //                 echo 'Laporan tes ditemukan, mengarsipkan...'
+    //                 // Arsipkan laporan tes
+    //                 archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
+    //                 // JUnit laporan
+    //                 junit 'cypress/reports/junit/*.xml'
+    //             } else {
+    //                 echo 'Tidak ada laporan tes yang ditemukan untuk diarsipkan.'
+    //             }
+    //         }
+    //         // Bersihkan workspace
+    //         deleteDir()
+    //     }
+    // }
 }
