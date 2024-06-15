@@ -1,16 +1,14 @@
-
-describe('Login', ()=>{
+describe('test-one', ()=>{
   
   it('Login', () => {
-    cy.visit('https://docs.cypress.io/api/cypress-api/custom-commands')
-    // cy.get('Username').type('admin_portal');
-    // cy.get('input[ng-reflect-name="password"]').type('P@ssw0rd');
-    // cy.get('.btn').click() 
-    // cy.get('input[ng-reflect-name="username"]').type('p@gmail.com');
-    // cy.get('.btn').click() 
-    // cy.get('input[ng-reflect-name="username"]').type('admin_portal');
-    // cy.get('input[ng-reflect-name="password"]').type('P@ssw0rd');
-    // cy.get('.btn').click()
+    cy.visit('http://localhost:3000/index.html')
+    cy.get('input[name="name"]').type('TestQAone');
+    cy.get('input[name="email"]').type('p@gmail.com');
+    cy.get('input[name="nik"]').type('1122282383782893');
+    cy.get('input[name="phone"]').type('2827368238378278');
+    cy.get('button').click() 
+   
+    
     
     
   })
