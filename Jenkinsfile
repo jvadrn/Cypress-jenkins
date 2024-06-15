@@ -68,10 +68,8 @@ pipeline {
             archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
             // JUnit laporan
             junit 'cypress/reports/**/*.xml'
-        }
-        cleanup {
             // Bersihkan workspace
-            cleanWs()
+            deleteDir()
         }
     }
 }
