@@ -31,18 +31,6 @@ pipeline {
                 sh 'npm install'
                 sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y xvfb'
-                
-                // Buat file reporter-config.json
-                writeFile file: 'reporter-config.json', text: '''{
-                    "reporterEnabled": "mochawesome",
-                    "mochawesomeReporterOptions": {
-                        "reportDir": "cypress/reports",
-                        "quiet": true,
-                        "overwrite": false,
-                        "html": false,
-                        "json": true
-                    }
-                }'''
             }
         }
         
@@ -51,20 +39,20 @@ pipeline {
                 sh 'echo "Workspace: ${WORKSPACE}"'
                 sh 'ls -alh'
                 sh 'ls -alh cypress'
-                sh 'ls -alh cypress/reports/html'
+                sh 'ls -alh cypress/reports'
             }
         }
         
         stage('Jalankan Tes Cypress') {
             steps {
-                sh 'npx cypress run --reporter mocha-multi-reporters --reporter-options configFile=reporter-config.json'
+                sh 'npx cypress run --reporter mocha-multi-reporters --reporter-options configFile=cypress.json'
             }
         }
 
         stage('Periksa Laporan') {
             steps {
                 script {
-                    def reports = sh(script: 'ls -1 cypress/reports/html', returnStdout: true).trim()
+                    def reports = sh(script: 'ls -1 cypress/reports/junit', returnStdout: true).trim()
                     echo "Laporan yang ditemukan:\n${reports}"
                 }
             }
@@ -74,13 +62,13 @@ pipeline {
     post {
         always {
             script {
-                def reportsExist = fileExists('cypress/reports/html')
+                def reportsExist = fileExists('cypress/reports/junit')
                 if (reportsExist) {
                     echo 'Laporan tes ditemukan, mengarsipkan...'
                     // Arsipkan laporan tes
-                    archiveArtifacts artifacts: 'cypress/reports/html/**/*.json', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
                     // JUnit laporan
-                    junit 'cypress/reports/html/**/*.xml'
+                    junit 'cypress/reports/junit/*.xml'
                 } else {
                     echo 'Tidak ada laporan tes yang ditemukan untuk diarsipkan.'
                 }
