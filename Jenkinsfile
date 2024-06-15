@@ -29,8 +29,8 @@ pipeline {
         stage('Instalasi Dependencies') {
             steps {
                 bat 'npm install'
-                bat 'sudo apt-get update'
-                bat 'sudo apt-get install -y xvfb'
+               
+                bat 'npm  install -y xvfb'
                 bat 'npm install mocha-multi-reporters mocha-junit-reporter --save-dev'
 
             }
