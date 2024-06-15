@@ -17,11 +17,11 @@
   },
   "reporter": "cypress-mochawesome-reporter",
   "reporterOptions": {
-    "reportDir": "cypress/report",
+    "reportDir": "cypress/reports",
     "overwrite": false,
     "html": false,
     "json": true,
-    "reportFilename": "report",
+    "reportFilename": "reports",
     "timestamp": "mmddyyyy_HHMMss"
   }
   
