@@ -3,8 +3,26 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jvadrn', url: 'https://github.com/jvadrn/Fortesting-Cypress-Jenkins.git']])
-                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jvadrn', url: 'https://github.com/jvadrn/Cypress-jenkins.git']])
+                // Checkout the first repository
+                checkout([
+                    $class: 'GitSCM', 
+                    branches: [[name: 'main']], 
+                    extensions: [], 
+                    userRemoteConfigs: [[
+                        credentialsId: 'jvadrn', 
+                        url: 'https://github.com/jvadrn/Fortesting-Cypress-Jenkins.git'
+                    ]]
+                ])
+                // Checkout the second repository
+                checkout([
+                    $class: 'GitSCM', 
+                    branches: [[name: 'main']], 
+                    extensions: [], 
+                    userRemoteConfigs: [[
+                        credentialsId: 'jvadrn', 
+                        url: 'https://github.com/jvadrn/Cypress-jenkins.git'
+                    ]]
+                ])
             }
         }
         
@@ -12,7 +30,7 @@ pipeline {
             steps {
                 sh 'npm install'
                 sh 'sudo apt-get update'
-                sh 'sudo apt-get install xvfb'
+                sh 'sudo apt-get install -y xvfb'
             }
         }
         
@@ -22,7 +40,4 @@ pipeline {
             }
         }
     }
-    
-    
 }
-
