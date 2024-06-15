@@ -1,7 +1,7 @@
 describe('test-one', ()=>{
   
   it('Login', () => {
-    cy.visit('http://localhost:3000/index.html')
+    cy.visit('http://localhost:4200/')
     cy.get('input[name="name"]').type('TestQAone');
     cy.get('input[name="email"]').type('p@gmail.com');
     cy.get('input[name="nik"]').type('1122282383782893');
