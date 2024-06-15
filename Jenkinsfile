@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the first repository
+                // Checkout repository pertama
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: 'main']], 
@@ -13,7 +13,7 @@ pipeline {
                         url: 'https://github.com/jvadrn/Fortesting-Cypress-Jenkins.git'
                     ]]
                 ])
-                // Checkout the second repository
+                // Checkout repository kedua
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: 'main']], 
@@ -26,18 +26,18 @@ pipeline {
             }
         }
         
-        stage('Install Dependencies') {
+        stage('Instalasi Dependencies') {
             steps {
                 sh 'npm install'
-                sh 'npm install --save-dev cypress-multi-reporters mochawesome mochawesome-merge mochawesome-report-generator'
                 sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y xvfb'
-                // Create reporter-config.json file
+                
+                // Buat file reporter-config.json
                 writeFile file: 'reporter-config.json', text: '''{
                     "reporterEnabled": "mochawesome",
                     "mochawesomeReporterOptions": {
                         "reportDir": "cypress/reports",
-                        "quite": true,
+                        "quiet": true,
                         "overwrite": false,
                         "html": false,
                         "json": true
@@ -46,11 +46,32 @@ pipeline {
             }
         }
         
-        stage('Run Cypress Tests') {
+        stage('Debug Environment') {
             steps {
-                sh 'npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json'
+                sh 'echo "Workspace: ${WORKSPACE}"'
+                sh 'ls -alh'
+                sh 'ls -alh cypress'
+                sh 'ls -alh cypress/reports'
             }
         }
+        
+        stage('Jalankan Tes Cypress') {
+            steps {
+                sh 'npx cypress run --reporter mocha-multi-reporters --reporter-options configFile=reporter-config.json'
+            }
+        }
+    }
     
+    post {
+        always {
+            // Arsipkan laporan tes
+            archiveArtifacts artifacts: 'cypress/reports/**/*.json', allowEmptyArchive: true
+            // JUnit laporan
+            junit 'cypress/reports/**/*.xml'
+        }
+        cleanup {
+            // Bersihkan workspace
+            cleanWs()
+        }
     }
 }
