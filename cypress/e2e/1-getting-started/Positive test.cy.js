@@ -1,6 +1,6 @@
-describe('test-one', ()=>{
+describe('Positif', ()=>{
   
-  it('Login', () => {
+  it('Pass', () => {
     cy.visit('https://jvtestqa.netlify.app/')
     cy.get('input[name="name"]').type('TestQAone');
     cy.get('input[name="email"]').type('p@gmail.com');
