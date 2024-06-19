@@ -50,19 +50,6 @@ pipeline {
                 sh 'npx cypress run '
             }
         }
-        stage('Publish Test Report') {
-            steps {
-                // Publish laporan tes Cypress
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'Cypress-jenkins/cypress/reports/html',
-                    reportFiles: 'index.html',
-                    reportName: 'Cypress Test Report'
-                ])
-            }
-        }
     }
 
     //  post {
