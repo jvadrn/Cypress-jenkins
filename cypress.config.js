@@ -13,7 +13,7 @@ module.exports = defineConfig({
     baseUrl: 'http://157.245.199.194:8080/',
     setupNodeEvents(on, config) {
 
-      // implement node event listeners here
+      require('cypress-terminal-report/src/installLogsPrinter')(on);
     },
   },
 
