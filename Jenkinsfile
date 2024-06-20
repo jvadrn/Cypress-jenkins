@@ -71,7 +71,7 @@ pipeline {
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
                 reportDir: "${WORKSPACE}/cypress/reports/html",
-                reportFiles: 'mochawesome',
+                reportFiles: 'mochawesome.html',
                 reportName: 'Cypress Test Results'
             ])
         }
