@@ -52,28 +52,30 @@ pipeline {
         }
     }
 
-    //  post {
-    //     always {
-    //         script {
-    //             // Arsipkan laporan tes dari direktori lokal
-    //             archiveArtifacts artifacts: 'D:/All Project/TA/Cypress-jenkins/Cypress-jenkinss/cypress/reports/html', allowEmptyArchive: true
-    //         }
-    //         // Bersihkan workspace
-
-    //     }
+     post {
+        always {
+            publishHTML(target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'D:/All Project/TA/Cypress-jenkins/Cypress-jenkinss/cypress/reports/html',
+            reportFiles: 'index.html',
+            reportName: 'Cypress Test Results'
+            ])
+        }
         
-    //     success {
-    //         // Publish HTML reports dari direktori lokal
-    //         publishHTML(target: [
-    //         allowMissing: false,
-    //         alwaysLinkToLastBuild: true,
-    //         keepAll: true,
-    //         reportDir: 'D:/All Project/TA/Cypress-jenkins/Cypress-jenkinss/cypress/reports/html',
-    //         reportFiles: 'index.html',
-    //         reportName: 'Cypress Test Results'
-    //     ])
+        // success {
+        //     // Publish HTML reports dari direktori lokal
+        //     publishHTML(target: [
+        //     allowMissing: false,
+        //     alwaysLinkToLastBuild: true,
+        //     keepAll: true,
+        //     reportDir: 'D:/All Project/TA/Cypress-jenkins/Cypress-jenkinss/cypress/reports/html',
+        //     reportFiles: 'index.html',
+        //     reportName: 'Cypress Test Results'
+        // ])
 
-    //     }
-    // }
+        // }
+    }
 
 }
