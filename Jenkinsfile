@@ -64,8 +64,8 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: "/root/.jenkins/jobs/Testting-Cypress/builds/58/htmlreports/",
-                reportFiles: 'index.html',
+                reportDir: "/root/.jenkins/jobs/Testting-Cypress/builds/59/htmlreports/Cypress_20Test_20Results",
+                reportFiles: 'Cypress_20Test_20Results',
                 reportName: 'Cypress Test Results'
             ])
         }
