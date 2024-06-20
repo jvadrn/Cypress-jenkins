@@ -64,7 +64,7 @@ pipeline {
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
                 reportDir: "/root/.jenkins/workspace/Testting-Cypress@2/cypress/reports/html",
-                reportFiles: 'index_032.html',
+                reportFiles: 'index_021.html',
                 reportName: 'Cypress Test Results'
             ])
         }
