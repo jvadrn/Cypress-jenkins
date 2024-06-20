@@ -52,7 +52,7 @@ pipeline {
         stage('Check Report') {
             steps {
                 // Memastikan laporan dihasilkan
-                sh 'ls -alh cypress/reports/html'
+                sh 'ls -alh /root/.jenkins/workspace/Testting-Cypress@2/cypress/reports/html'
             }
         }
     }
@@ -64,7 +64,7 @@ pipeline {
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
                 reportDir: "/root/.jenkins/workspace/Testting-Cypress@2/cypress/reports/html",
-                reportFiles: 'index.html',
+                reportFiles: 'index_032.html',
                 reportName: 'Cypress Test Results'
             ])
         }
