@@ -63,7 +63,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: "D:/All Project/TA/Cypress-jenkins/Cypress-jenkinss/cypress/reports/html",
+                reportDir: "${WORKSPACE}/cypress/reports/html",
                 reportFiles: 'index.html',
                 reportName: 'Cypress Test Results'
             ])
