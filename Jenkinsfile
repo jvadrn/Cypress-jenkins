@@ -5,27 +5,27 @@ pipeline {
             steps {
                 // Checkout repository pertama
                 checkout([
-                    $class: 'GitSCM', 
-                    branches: [[name: 'main']], 
-                    extensions: [], 
+                    $class: 'GitSCM',
+                    branches: [[name: 'main']],
+                    extensions: [],
                     userRemoteConfigs: [[
-                        credentialsId: 'jvadrn', 
+                        credentialsId: 'jvadrn',
                         url: 'https://github.com/jvadrn/Fortesting-Cypress-Jenkins.git'
                     ]]
                 ])
                 // Checkout repository kedua
                 checkout([
-                    $class: 'GitSCM', 
-                    branches: [[name: 'main']], 
-                    extensions: [], 
+                    $class: 'GitSCM',
+                    branches: [[name: 'main']],
+                    extensions: [],
                     userRemoteConfigs: [[
-                        credentialsId: 'jvadrn', 
+                        credentialsId: 'jvadrn',
                         url: 'https://github.com/jvadrn/Cypress-jenkins.git'
                     ]]
                 ])
             }
         }
-        
+
         stage('Instalasi Dependencies') {
             steps {
                 sh 'npm install'
@@ -34,7 +34,7 @@ pipeline {
                 sh 'npm install mocha-multi-reporters mocha-junit-reporter --save-dev'
             }
         }
-        
+
         stage('Debug Environment') {
             steps {
                 sh 'echo "Workspace: ${WORKSPACE}"'
@@ -43,31 +43,37 @@ pipeline {
                 sh 'ls -alh cypress/reports'
             }
         }
-        
+
         stage('Jalankan Tes Cypress') {
             steps {
-                sh 'npx cypress run '
+                sh 'npx cypress run'
             }
         }
+
         stage('Check Report') {
             steps {
-                // Memastikan laporan dihasilkan
-                sh 'ls -alh /root/.jenkins/workspace/Testting-Cypress@2/cypress/reports/html/index_043.html'
+                // Memastikan laporan dihasilkan dan menampilkan struktur direktori
+                sh 'ls -alh cypress/reports/html'
             }
         }
     }
 
-     post {
+    post {
         always {
+            script {
+                // Menampilkan isi direktori laporan sebelum publikasi
+                sh 'echo "Isi direktori laporan sebelum publikasi:"'
+                sh 'ls -alh cypress/reports/html'
+            }
+
             publishHTML(target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: "/root/.jenkins/workspace/Testting-Cypress@2/cypress/reports/html/index_043.html",
+                reportDir: "${WORKSPACE}/cypress/reports/html",
                 reportFiles: 'index.html',
                 reportName: 'Cypress Test Results'
             ])
         }
     }
-
 }
