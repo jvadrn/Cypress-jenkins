@@ -32,7 +32,6 @@ pipeline {
                 sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y xvfb'
                 sh 'npm install mocha-multi-reporters mocha-junit-reporter --save-dev'
-
             }
         }
         
@@ -64,8 +63,8 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: "/root/.jenkins/jobs/Testting-Cypress/builds/59/htmlreports/Cypress_20Test_20Results",
-                reportFiles: 'Cypress_20Test_20Results',
+                reportDir: "/root/.jenkins/workspace/Testting-Cypress@2/cypress/reports/html",
+                // reportFiles: 'index.html',
                 reportName: 'Cypress Test Results'
             ])
         }
