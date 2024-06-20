@@ -50,17 +50,23 @@ pipeline {
                 sh 'npx cypress run '
             }
         }
+        stage('Check Report') {
+            steps {
+                // Memastikan laporan dihasilkan
+                sh 'ls -alh cypress/reports/html'
+            }
+        }
     }
 
      post {
         always {
             publishHTML(target: [
-            allowMissing: false,
-            alwaysLinkToLastBuild: true,
-            keepAll: true,
-            reportDir: '/root/.jenkins/workspace/Testting-Cypress/cypress/reports/html',
-            reportFiles: 'index.html',
-            reportName: 'Cypress Test Results'
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: "${WORKSPACE}/cypress/reports/html",
+                reportFiles: 'index.html',
+                reportName: 'Cypress Test Results'
             ])
         }
         
